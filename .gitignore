@@ -1,0 +1,4 @@
+# UiPath generated
+.local/
+.project/*.cache
+*.nupkg
