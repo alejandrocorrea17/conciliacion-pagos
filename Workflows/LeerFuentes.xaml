@@ -108,7 +108,6 @@
       <AssemblyReference>NPOI.Core</AssemblyReference>
       <AssemblyReference>System.Collections</AssemblyReference>
       <AssemblyReference>System.Collections.NonGeneric</AssemblyReference>
-      <AssemblyReference>GlobalVariablesT1PNoYwrqg</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
   <Sequence DisplayName="LeerFuentes" sap:VirtualizedContainerService.HintSize="1249.2,700.8" sap2010:WorkflowViewState.IdRef="Sequence_1">
