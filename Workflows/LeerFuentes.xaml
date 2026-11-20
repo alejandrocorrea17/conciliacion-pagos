@@ -110,15 +110,15 @@
       <AssemblyReference>System.Collections.NonGeneric</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="LeerFuentes" sap:VirtualizedContainerService.HintSize="1457.2,700.8" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="LeerFuentes" sap:VirtualizedContainerService.HintSize="1249.2,700.8" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
     <ui:LogMessage DisplayName="Log Message Leer Fuentes Started" sap:VirtualizedContainerService.HintSize="449.6,174.4" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Leer Fuentes Started&quot;]" />
-    <ui:ReadCsvFile FilePath="{x:Null}" DataTable="[out_dt_Extracto]" Delimitator="Semicolon" DelimitatorForViewModel="Semicolon" DisplayName="Read CSV in_RutaExtracto" sap:VirtualizedContainerService.HintSize="449.6,168.8" sap2010:WorkflowViewState.IdRef="ReadCsvFile_1" PathResource="[LocalResource.FromPath(in_RutaExtracto)]" />
-    <ui:ReadCsvFile FilePath="{x:Null}" DataTable="[out_dt_Pagos]" Delimitator="Semicolon" DelimitatorForViewModel="Semicolon" DisplayName="Read CSV in_RutaPagos" sap:VirtualizedContainerService.HintSize="449.6,168.8" sap2010:WorkflowViewState.IdRef="ReadCsvFile_2" PathResource="[LocalResource.FromPath(in_RutaPagos)]" />
+    <ui:ReadCsvFile FilePath="{x:Null}" DataTable="[out_dt_Extracto]" Delimitator="Comma" DelimitatorForViewModel="Comma" DisplayName="Read CSV in_RutaExtracto" sap:VirtualizedContainerService.HintSize="449.6,168.8" sap2010:WorkflowViewState.IdRef="ReadCsvFile_1" PathResource="[LocalResource.FromPath(in_RutaExtracto)]" />
+    <ui:ReadCsvFile FilePath="{x:Null}" DataTable="[out_dt_Pagos]" Delimitator="Comma" DelimitatorForViewModel="Comma" DisplayName="Read CSV in_RutaPagos" sap:VirtualizedContainerService.HintSize="449.6,168.8" sap2010:WorkflowViewState.IdRef="ReadCsvFile_2" PathResource="[LocalResource.FromPath(in_RutaPagos)]" />
     <ui:LogMessage DisplayName="Log Message Leer Fuentes Finished" sap:VirtualizedContainerService.HintSize="449.6,165.6" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Leer Fuentes Finished&quot;]" />
   </Sequence>
 </Activity>
