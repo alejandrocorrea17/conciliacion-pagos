@@ -1,4 +1,4 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="LeerFuentes" this:LeerFuentes.in_RutaPagos="Data\Input\pagos_tickets.csv" this:LeerFuentes.in_RutaExtracto="Data\Input\extracto.csv" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="LeerFuentes" this:LeerFuentes.in_RutaPagos="Data\Input\pagos_tickets.csv" this:LeerFuentes.in_RutaExtracto="Data\Input\extracto.csv" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:s="clr-namespace:System;assembly=System.Private.CoreLib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="out_dt_Pagos" Type="OutArgument(sd:DataTable)" />
     <x:Property Name="out_dt_Extracto" Type="OutArgument(sd:DataTable)" />
@@ -48,6 +48,8 @@
       <x:String>UiPath.Platform</x:String>
       <x:String>UiPath.CSV</x:String>
       <x:String>UiPath.CSV.Activities</x:String>
+      <x:String>System.Activities.Runtime.Collections</x:String>
+      <x:String>System.Numerics</x:String>
     </sco:Collection>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
@@ -108,17 +110,141 @@
       <AssemblyReference>NPOI.Core</AssemblyReference>
       <AssemblyReference>System.Collections</AssemblyReference>
       <AssemblyReference>System.Collections.NonGeneric</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext</AssemblyReference>
+      <AssemblyReference>System.Runtime.Numerics</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="LeerFuentes" sap:VirtualizedContainerService.HintSize="1249.2,700.8" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="LeerFuentes" sap:VirtualizedContainerService.HintSize="505.6,2886.4" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:LogMessage DisplayName="Log Message Leer Fuentes Started" sap:VirtualizedContainerService.HintSize="449.6,174.4" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Leer Fuentes Started&quot;]" />
-    <ui:ReadCsvFile FilePath="{x:Null}" DataTable="[out_dt_Extracto]" Delimitator="Comma" DelimitatorForViewModel="Comma" DisplayName="Read CSV in_RutaExtracto" sap:VirtualizedContainerService.HintSize="449.6,168.8" sap2010:WorkflowViewState.IdRef="ReadCsvFile_1" PathResource="[LocalResource.FromPath(in_RutaExtracto)]" />
-    <ui:ReadCsvFile FilePath="{x:Null}" DataTable="[out_dt_Pagos]" Delimitator="Comma" DelimitatorForViewModel="Comma" DisplayName="Read CSV in_RutaPagos" sap:VirtualizedContainerService.HintSize="449.6,168.8" sap2010:WorkflowViewState.IdRef="ReadCsvFile_2" PathResource="[LocalResource.FromPath(in_RutaPagos)]" />
-    <ui:LogMessage DisplayName="Log Message Leer Fuentes Finished" sap:VirtualizedContainerService.HintSize="449.6,165.6" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Leer Fuentes Finished&quot;]" />
+    <TryCatch DisplayName="Ejecucion Segura" sap:VirtualizedContainerService.HintSize="505.6,2863.2" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+      <TryCatch.Try>
+        <Sequence DisplayName="Try" sap:VirtualizedContainerService.HintSize="504,2681.6" sap2010:WorkflowViewState.IdRef="Sequence_2">
+          <Sequence.Variables>
+            <Variable x:TypeArguments="x:Boolean" Name="booExtractoExiste" />
+            <Variable x:TypeArguments="x:Boolean" Name="booPagosExiste" />
+          </Sequence.Variables>
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:LogMessage DisplayName="Log Message Leer Fuentes Started" sap:VirtualizedContainerService.HintSize="470.4,174.4" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Leer Fuentes Started&quot;]" />
+          <ui:FileExistsX DisplayName="File Exists in_RutaExtracto" Exists="[booExtractoExiste]" sap:VirtualizedContainerService.HintSize="470.4,174.4" sap2010:WorkflowViewState.IdRef="FileExistsX_1" Path="[in_RutaExtracto]" />
+          <If Condition="[booExtractoExiste]" DisplayName="If booExtractoExiste" sap:VirtualizedContainerService.HintSize="470.4,966.4" sap2010:WorkflowViewState.IdRef="If_1">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <If.Then>
+              <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="468.8,570.4" sap2010:WorkflowViewState.IdRef="Sequence_5">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <ui:ReadCsvFile FilePath="{x:Null}" DataTable="[out_dt_Extracto]" Delimitator="Comma" DelimitatorForViewModel="Comma" DisplayName="Read CSV in_RutaExtracto" sap:VirtualizedContainerService.HintSize="435.2,168.8" sap2010:WorkflowViewState.IdRef="ReadCsvFile_1" PathResource="[LocalResource.FromPath(in_RutaExtracto)]" />
+                <ui:LogMessage DisplayName="Log Message cantidad de filas en archivo extracto" sap:VirtualizedContainerService.HintSize="435.2,174.4" sap2010:WorkflowViewState.IdRef="LogMessage_6" Level="Info" Message="[&quot;El archivo extracto contiene: &quot;+out_dt_Extracto.RowCount.ToString+ &quot; Filas.&quot;]" />
+                <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" DisplayName="ValidarFuentes - Invoke Workflow File (Workflows\ValidarFuentes.xaml)" sap:VirtualizedContainerService.HintSize="435.2,167.2" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Workflows\ValidarFuentes.xaml">
+                  <ui:InvokeWorkflowFile.Arguments>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_NombreFuente">Extracto</InArgument>
+                    <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_dt">[out_dt_Extracto]</InOutArgument>
+                  </ui:InvokeWorkflowFile.Arguments>
+                </ui:InvokeWorkflowFile>
+              </Sequence>
+            </If.Then>
+            <If.Else>
+              <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="468.8,225.6" sap2010:WorkflowViewState.IdRef="Sequence_6">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <ui:LogMessage DisplayName="Log Message archivo extracto no existe" sap:VirtualizedContainerService.HintSize="435.2,165.6" sap2010:WorkflowViewState.IdRef="LogMessage_4" Level="Warn" Message="[&quot;El archivo extracto no existe&quot;]" />
+              </Sequence>
+            </If.Else>
+          </If>
+          <ui:FileExistsX DisplayName="File Exists in_RutaPagos" Exists="[booPagosExiste]" sap:VirtualizedContainerService.HintSize="470.4,174.4" sap2010:WorkflowViewState.IdRef="FileExistsX_2" Path="[in_RutaPagos]" />
+          <If Condition="[booPagosExiste]" DisplayName="If booPagosExiste" sap:VirtualizedContainerService.HintSize="470.4,966.4" sap2010:WorkflowViewState.IdRef="If_2">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <If.Then>
+              <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="468.8,570.4" sap2010:WorkflowViewState.IdRef="Sequence_7">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <ui:ReadCsvFile FilePath="{x:Null}" DataTable="[out_dt_Pagos]" Delimitator="Comma" DelimitatorForViewModel="Comma" DisplayName="Read CSV in_RutaPagos" sap:VirtualizedContainerService.HintSize="435.2,168.8" sap2010:WorkflowViewState.IdRef="ReadCsvFile_2" PathResource="[LocalResource.FromPath(in_RutaPagos)]" />
+                <ui:LogMessage DisplayName="Log Message cantidad de filas en archivo pagos" sap:VirtualizedContainerService.HintSize="435.2,174.4" sap2010:WorkflowViewState.IdRef="LogMessage_7" Level="Info" Message="[&quot;El archivo pagos contiene: &quot;+out_dt_Pagos.RowCount.ToString+ &quot; Filas.&quot;]" />
+                <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" DisplayName="ValidarFuentes - Invoke Workflow File (Workflows\ValidarFuentes.xaml)" sap:VirtualizedContainerService.HintSize="435.2,167.2" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="Workflows\ValidarFuentes.xaml">
+                  <ui:InvokeWorkflowFile.Arguments>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_NombreFuente">Pagos</InArgument>
+                    <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_dt">[out_dt_Pagos]</InOutArgument>
+                  </ui:InvokeWorkflowFile.Arguments>
+                </ui:InvokeWorkflowFile>
+              </Sequence>
+            </If.Then>
+            <If.Else>
+              <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="468.8,225.6" sap2010:WorkflowViewState.IdRef="Sequence_8">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <ui:LogMessage DisplayName="Log Message archivo pagos no existe" sap:VirtualizedContainerService.HintSize="435.2,165.6" sap2010:WorkflowViewState.IdRef="LogMessage_5" Level="Warn" Message="[&quot;El archivo pagos no existe&quot;]" />
+              </Sequence>
+            </If.Else>
+          </If>
+          <ui:LogMessage DisplayName="Log Message Leer Fuentes Finished" sap:VirtualizedContainerService.HintSize="470.4,165.6" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Leer Fuentes Finished&quot;]" />
+        </Sequence>
+      </TryCatch.Try>
+      <TryCatch.Catches>
+        <Catch x:TypeArguments="s:Exception" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+          <ActivityAction x:TypeArguments="s:Exception">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+            </ActivityAction.Argument>
+            <Sequence DisplayName="Catch" sap:VirtualizedContainerService.HintSize="504,24.8" sap2010:WorkflowViewState.IdRef="Sequence_4">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <ui:LogMessage DisplayName="Log Message catch" sap:VirtualizedContainerService.HintSize="416,48" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Error" Message="[exception.Message]">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+              </ui:LogMessage>
+            </Sequence>
+          </ActivityAction>
+        </Catch>
+      </TryCatch.Catches>
+      <TryCatch.Finally>
+        <Sequence DisplayName="Finally" sap:VirtualizedContainerService.HintSize="504,24.8" sap2010:WorkflowViewState.IdRef="Sequence_3">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+        </Sequence>
+      </TryCatch.Finally>
+    </TryCatch>
   </Sequence>
 </Activity>
