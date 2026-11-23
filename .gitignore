@@ -2,3 +2,5 @@
 .tmh/
 *.nupkg
 Output/
+~*.xaml
+.project/*.cache
