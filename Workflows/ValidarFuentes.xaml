@@ -1,4 +1,4 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="ValidarFuentes" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:s="clr-namespace:System;assembly=System.Private.CoreLib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="ValidarFuentes" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="in_NombreFuente" Type="InArgument(x:String)" />
     <x:Property Name="io_dt" Type="InOutArgument(sd:DataTable)" />
@@ -102,7 +102,7 @@
       <AssemblyReference>System.Linq.Queryable</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="ValidarFuentes" sap:VirtualizedContainerService.HintSize="687.6,1430.4" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="ValidarFuentes" sap:VirtualizedContainerService.HintSize="1249.2,934.4" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="scg:List(x:Int32)" Name="filasInvalidas" />
       <Variable x:TypeArguments="scg:List(x:String)" Name="columnasFaltantes" />
@@ -112,138 +112,101 @@
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <TryCatch DisplayName="Ejecucion segura" sap:VirtualizedContainerService.HintSize="486.4,1407.2" sap2010:WorkflowViewState.IdRef="TryCatch_1">
-      <TryCatch.Try>
-        <Sequence DisplayName="Try" sap:VirtualizedContainerService.HintSize="449.6,971.2" sap2010:WorkflowViewState.IdRef="Sequence_3">
+    <If Condition="[io_dt.RowCount = 0]" DisplayName="If io_dt.RowCount = 0" sap:VirtualizedContainerService.HintSize="449.6,56.8" sap2010:WorkflowViewState.IdRef="If_4">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <If.Then>
+        <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="449.6,173.6" sap2010:WorkflowViewState.IdRef="Sequence_11">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
-          <If Condition="[io_dt.RowCount = 0]" DisplayName="If io_dt.RowCount = 0" sap:VirtualizedContainerService.HintSize="416,56.8" sap2010:WorkflowViewState.IdRef="If_1">
-            <sap:WorkflowViewStateService.ViewState>
-              <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
-                <x:Boolean x:Key="IsPinned">False</x:Boolean>
-              </scg:Dictionary>
-            </sap:WorkflowViewStateService.ViewState>
-            <If.Then>
-              <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="449.6,173.6" sap2010:WorkflowViewState.IdRef="Sequence_5">
-                <sap:WorkflowViewStateService.ViewState>
-                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                  </scg:Dictionary>
-                </sap:WorkflowViewStateService.ViewState>
-                <Throw Exception="[New BusinessRuleException(in_NombreFuente &amp; &quot;: el archivo no tiene filas&quot;)]" sap:VirtualizedContainerService.HintSize="416,113.6" sap2010:WorkflowViewState.IdRef="Throw_1" />
-              </Sequence>
-            </If.Then>
-            <If.Else>
-              <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="449.6,24.8" sap2010:WorkflowViewState.IdRef="Sequence_6">
-                <sap:WorkflowViewStateService.ViewState>
-                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                    <x:Boolean x:Key="IsExpanded">False</x:Boolean>
-                  </scg:Dictionary>
-                </sap:WorkflowViewStateService.ViewState>
-              </Sequence>
-            </If.Else>
-          </If>
-          <Assign DisplayName="Assign columnasFaltantes" sap:VirtualizedContainerService.HintSize="416,174.4" sap2010:WorkflowViewState.IdRef="Assign_1">
-            <Assign.To>
-              <OutArgument x:TypeArguments="scg:List(x:String)">[columnasFaltantes]</OutArgument>
-            </Assign.To>
-            <Assign.Value>
-              <InArgument x:TypeArguments="scg:List(x:String)">[{"Referencia", "Monto"}.Where(Function(c) Not io_dt.Columns.Contains(c)).ToList()]</InArgument>
-            </Assign.Value>
-          </Assign>
-          <If Condition="[columnasFaltantes.Count &gt; 0]" DisplayName="If columnasFaltantes.Count &gt; 0" sap:VirtualizedContainerService.HintSize="416,56.8" sap2010:WorkflowViewState.IdRef="If_2">
-            <sap:WorkflowViewStateService.ViewState>
-              <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
-                <x:Boolean x:Key="IsPinned">False</x:Boolean>
-              </scg:Dictionary>
-            </sap:WorkflowViewStateService.ViewState>
-            <If.Then>
-              <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="449.6,173.6" sap2010:WorkflowViewState.IdRef="Sequence_7">
-                <sap:WorkflowViewStateService.ViewState>
-                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                  </scg:Dictionary>
-                </sap:WorkflowViewStateService.ViewState>
-                <Throw Exception="[New BusinessRuleException(in_NombreFuente &amp; &quot;: faltan columnas &quot; &amp; String.Join(&quot;, &quot;, columnasFaltantes))]" sap:VirtualizedContainerService.HintSize="416,113.6" sap2010:WorkflowViewState.IdRef="Throw_2" />
-              </Sequence>
-            </If.Then>
-            <If.Else>
-              <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="449.6,24.8" sap2010:WorkflowViewState.IdRef="Sequence_8">
-                <sap:WorkflowViewStateService.ViewState>
-                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                    <x:Boolean x:Key="IsExpanded">False</x:Boolean>
-                  </scg:Dictionary>
-                </sap:WorkflowViewStateService.ViewState>
-              </Sequence>
-            </If.Else>
-          </If>
-          <ui:InvokeCode ContinueOnError="{x:Null}" Code="Dim dtNuevo As DataTable = io_dt.Clone()&#xA;dtNuevo.Columns(&quot;Monto&quot;).DataType = GetType(Decimal)&#xA;out_FilasInvalidas = New List(Of Integer)&#xA;Dim numeroFila As Integer = 1&#xA;For Each fila As DataRow In io_dt.Rows&#xA;    numeroFila += 1&#xA;    Dim monto As Decimal&#xA;    If Not Decimal.TryParse(fila(&quot;Monto&quot;).ToString().Trim(), Globalization.NumberStyles.Number, Globalization.CultureInfo.InvariantCulture, monto) Then&#xA;        out_FilasInvalidas.Add(numeroFila)&#xA;        Continue For&#xA;    End If&#xA;    Dim nueva As DataRow = dtNuevo.NewRow()&#xA;    For Each col As DataColumn In io_dt.Columns&#xA;        nueva(col.ColumnName) = If(col.ColumnName = &quot;Monto&quot;, CObj(monto), fila(col.ColumnName))&#xA;    Next&#xA;    dtNuevo.Rows.Add(nueva)&#xA;Next&#xA;io_dt = dtNuevo" DisplayName="Invoke Code convertir monto a decimal" sap:VirtualizedContainerService.HintSize="416,400.8" sap2010:WorkflowViewState.IdRef="InvokeCode_1">
-            <ui:InvokeCode.Arguments>
-              <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_dt">[io_dt]</InOutArgument>
-              <OutArgument x:TypeArguments="scg:List(x:Int32)" x:Key="out_FilasInvalidas">[filasInvalidas]</OutArgument>
-            </ui:InvokeCode.Arguments>
-          </ui:InvokeCode>
-          <If Condition="[filasInvalidas.Count &gt; 0]" DisplayName="If filasInvalidas.Count &gt; 0" sap:VirtualizedContainerService.HintSize="416,56.8" sap2010:WorkflowViewState.IdRef="If_3">
-            <sap:WorkflowViewStateService.ViewState>
-              <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
-                <x:Boolean x:Key="IsPinned">False</x:Boolean>
-              </scg:Dictionary>
-            </sap:WorkflowViewStateService.ViewState>
-            <If.Then>
-              <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="449.6,173.6" sap2010:WorkflowViewState.IdRef="Sequence_9">
-                <sap:WorkflowViewStateService.ViewState>
-                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                  </scg:Dictionary>
-                </sap:WorkflowViewStateService.ViewState>
-                <Throw Exception="[New BusinessRuleException(in_NombreFuente &amp; &quot;: monto inválido en filas &quot; &amp; String.Join(&quot;, &quot;, filasInvalidas))]" sap:VirtualizedContainerService.HintSize="416,113.6" sap2010:WorkflowViewState.IdRef="Throw_3" />
-              </Sequence>
-            </If.Then>
-            <If.Else>
-              <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="449.6,24.8" sap2010:WorkflowViewState.IdRef="Sequence_10">
-                <sap:WorkflowViewStateService.ViewState>
-                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                    <x:Boolean x:Key="IsExpanded">False</x:Boolean>
-                  </scg:Dictionary>
-                </sap:WorkflowViewStateService.ViewState>
-              </Sequence>
-            </If.Else>
-          </If>
-          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="416,165.6" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[in_NombreFuente &amp; &quot;: &quot; &amp; io_dt.Rows.Count.ToString &amp; &quot; filas validadas&quot;]" />
+          <Throw Exception="[New BusinessRuleException(in_NombreFuente &amp; &quot;: el archivo no tiene filas&quot;)]" sap:VirtualizedContainerService.HintSize="416,113.6" sap2010:WorkflowViewState.IdRef="Throw_4" />
         </Sequence>
-      </TryCatch.Try>
-      <TryCatch.Catches>
-        <Catch x:TypeArguments="s:Exception" sap2010:WorkflowViewState.IdRef="Catch`1_1">
-          <ActivityAction x:TypeArguments="s:Exception">
-            <ActivityAction.Argument>
-              <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
-            </ActivityAction.Argument>
-            <Sequence DisplayName="Catch" sap:VirtualizedContainerService.HintSize="484.8,225.6" sap2010:WorkflowViewState.IdRef="Sequence_2">
-              <sap:WorkflowViewStateService.ViewState>
-                <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                </scg:Dictionary>
-              </sap:WorkflowViewStateService.ViewState>
-              <ui:LogMessage DisplayName="Log Message exception" sap:VirtualizedContainerService.HintSize="451.2,165.6" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Error" Message="[exception.Message]" />
-            </Sequence>
-          </ActivityAction>
-        </Catch>
-      </TryCatch.Catches>
-      <TryCatch.Finally>
-        <Sequence DisplayName="Finally" sap:VirtualizedContainerService.HintSize="484.8,24.8" sap2010:WorkflowViewState.IdRef="Sequence_4">
+      </If.Then>
+      <If.Else>
+        <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="449.6,24.8" sap2010:WorkflowViewState.IdRef="Sequence_12">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">False</x:Boolean>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
         </Sequence>
-      </TryCatch.Finally>
-    </TryCatch>
+      </If.Else>
+    </If>
+    <Assign DisplayName="Assign columnasFaltantes" sap:VirtualizedContainerService.HintSize="449.6,174.4" sap2010:WorkflowViewState.IdRef="Assign_2">
+      <Assign.To>
+        <OutArgument x:TypeArguments="scg:List(x:String)">[columnasFaltantes]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="scg:List(x:String)">[{"Referencia", "Monto"}.Where(Function(c) Not io_dt.Columns.Contains(c)).ToList()]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <If Condition="[columnasFaltantes.Count &gt; 0]" DisplayName="If columnasFaltantes.Count &gt; 0" sap:VirtualizedContainerService.HintSize="449.6,56.8" sap2010:WorkflowViewState.IdRef="If_5">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <If.Then>
+        <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="449.6,173.6" sap2010:WorkflowViewState.IdRef="Sequence_13">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <Throw Exception="[New BusinessRuleException(in_NombreFuente &amp; &quot;: faltan columnas &quot; &amp; String.Join(&quot;, &quot;, columnasFaltantes))]" sap:VirtualizedContainerService.HintSize="416,113.6" sap2010:WorkflowViewState.IdRef="Throw_5" />
+        </Sequence>
+      </If.Then>
+      <If.Else>
+        <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="449.6,24.8" sap2010:WorkflowViewState.IdRef="Sequence_14">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+        </Sequence>
+      </If.Else>
+    </If>
+    <ui:InvokeCode ContinueOnError="{x:Null}" Code="Dim dtNuevo As DataTable = io_dt.Clone()&#xA;dtNuevo.Columns(&quot;Monto&quot;).DataType = GetType(Decimal)&#xA;out_FilasInvalidas = New List(Of Integer)&#xA;Dim numeroFila As Integer = 1&#xA;For Each fila As DataRow In io_dt.Rows&#xA;    numeroFila += 1&#xA;    Dim monto As Decimal&#xA;    If Not Decimal.TryParse(fila(&quot;Monto&quot;).ToString().Trim(), Globalization.NumberStyles.Number, Globalization.CultureInfo.InvariantCulture, monto) Then&#xA;        out_FilasInvalidas.Add(numeroFila)&#xA;        Continue For&#xA;    End If&#xA;    Dim nueva As DataRow = dtNuevo.NewRow()&#xA;    For Each col As DataColumn In io_dt.Columns&#xA;        nueva(col.ColumnName) = If(col.ColumnName = &quot;Monto&quot;, CObj(monto), fila(col.ColumnName))&#xA;    Next&#xA;    dtNuevo.Rows.Add(nueva)&#xA;Next&#xA;io_dt = dtNuevo" DisplayName="Invoke Code convertir monto a decimal" sap:VirtualizedContainerService.HintSize="449.6,400.8" sap2010:WorkflowViewState.IdRef="InvokeCode_2">
+      <ui:InvokeCode.Arguments>
+        <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_dt">[io_dt]</InOutArgument>
+        <OutArgument x:TypeArguments="scg:List(x:Int32)" x:Key="out_FilasInvalidas">[filasInvalidas]</OutArgument>
+      </ui:InvokeCode.Arguments>
+    </ui:InvokeCode>
+    <If Condition="[filasInvalidas.Count &gt; 0]" DisplayName="If filasInvalidas.Count &gt; 0" sap:VirtualizedContainerService.HintSize="449.6,56.8" sap2010:WorkflowViewState.IdRef="If_6">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <If.Then>
+        <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="449.6,173.6" sap2010:WorkflowViewState.IdRef="Sequence_15">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <Throw Exception="[New BusinessRuleException(in_NombreFuente &amp; &quot;: monto inválido en filas &quot; &amp; String.Join(&quot;, &quot;, filasInvalidas))]" sap:VirtualizedContainerService.HintSize="416,113.6" sap2010:WorkflowViewState.IdRef="Throw_6" />
+        </Sequence>
+      </If.Then>
+      <If.Else>
+        <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="449.6,24.8" sap2010:WorkflowViewState.IdRef="Sequence_16">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+        </Sequence>
+      </If.Else>
+    </If>
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="449.6,165.6" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[in_NombreFuente &amp; &quot;: &quot; &amp; io_dt.Rows.Count.ToString &amp; &quot; filas validadas&quot;]" />
   </Sequence>
 </Activity>
